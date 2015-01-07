@@ -1,0 +1,20 @@
+{
+	"$root": {
+		"dependencies": [
+		#foreach ($dep in $dependencies.entrySet())
+			#set ($currentOutCount=$foreach.count)
+			#foreach ($child in $dep.getValue())
+			{
+				"library": "$child.getGroupIdArtifactId()", 
+				"parent_library": "$dep.getKey().getGroupIdArtifactId():$dep.getKey().getVersion()", 
+				"version": "$child.getVersion()", 
+				"scope": "$child.getScope()" 
+			}
+			#if($currentOutCount != $dependencies.size())
+			,
+			#end
+			#end
+		#end
+    	]
+	} 
+}
