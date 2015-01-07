@@ -13,6 +13,10 @@ After, we'll build the project to create a executable file
 
 Go to **target/appassembler/bin/** folder an you'll see two files (*dependencyTreeExporter* and *dependencyTreeExporter.bat*)
 
+\* Unix only
+We must give execution grant to the file
+* chmod 755 dependencyTreeExport
+
 Now, you just need run:
 
 * dependencyTreeExporter[.bat] *title* *path-to-dot-file* *HTML|JSON**
