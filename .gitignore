@@ -1,0 +1,7 @@
+/target/
+/assemble.sh
+/dep.dot
+/dependencyTreeExporter.sh
+/.settings/
+/.classpath
+/.project
