@@ -3,16 +3,11 @@ package br.com.sfragata.dependencytreeexporter.transform;
 public enum TransformOutputType {
 	HTML("templates/html.vm"), JSON("templates/json.vm");
 
-	private String file;
+	private final String file;
 
-	private TransformOutputType(final String file) {
+	TransformOutputType(final String pFile) {
 
-		this.file = file;
-	}
-
-	public String getFile() {
-
-		return this.file;
+		this.file = pFile;
 	}
 
 	public static TransformOutputType getTransformOutputType(
@@ -22,6 +17,11 @@ public enum TransformOutputType {
 					"the 'transformOutputType' is required");
 		}
 		return TransformOutputType.valueOf(transformOutputType.toUpperCase());
+	}
+
+	public String getFile() {
+
+		return this.file;
 	}
 
 }

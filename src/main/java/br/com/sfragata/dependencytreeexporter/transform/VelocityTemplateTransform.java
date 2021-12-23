@@ -1,7 +1,15 @@
 /**
- * 
+ *
  */
 package br.com.sfragata.dependencytreeexporter.transform;
+
+import br.com.sfragata.dependencytreeexporter.dto.DependencyDTO;
+import br.com.sfragata.dependencytreeexporter.transform.exception.TemplateTransformException;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.exception.ParseErrorException;
+import org.apache.velocity.exception.ResourceNotFoundException;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -13,36 +21,27 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
 
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
-
-import br.com.sfragata.dependencytreeexporter.dto.DependencyDTO;
-import br.com.sfragata.dependencytreeexporter.transform.exception.TemplateTransformException;
-
 /**
  * @author sfragata
  *
  */
 public class VelocityTemplateTransform
-    implements TemplateTransform {
-
-    private final VelocityEngine velocityEngine;
+        implements TemplateTransform {
 
     private static final Properties VELOCITY_PROPERTIES = new Properties();
 
     static {
 
         final InputStream input =
-            VelocityTemplateTransform.class.getClassLoader().getResourceAsStream("velocity.properties");
+                VelocityTemplateTransform.class.getClassLoader().getResourceAsStream("velocity.properties");
         try {
             VelocityTemplateTransform.VELOCITY_PROPERTIES.load(input);
         } catch (final IOException e) {
             throw new IllegalArgumentException("Could not find velocity.properties...");
         }
     }
+
+    private final VelocityEngine velocityEngine;
 
     public VelocityTemplateTransform() {
 
@@ -52,10 +51,10 @@ public class VelocityTemplateTransform
 
     @Override
     public void transform(
-        final String rootName,
-        final Map<DependencyDTO, List<DependencyDTO>> deps,
-        final TransformOutputType outputType)
-        throws TemplateTransformException {
+            final String rootName,
+            final Map<DependencyDTO, List<DependencyDTO>> deps,
+            final TransformOutputType outputType)
+            throws TemplateTransformException {
 
         final Map<DependencyDTO, List<DependencyDTO>> sortedMap = sortMap(deps);
 
@@ -84,13 +83,12 @@ public class VelocityTemplateTransform
      * @return
      */
     private Map<DependencyDTO, List<DependencyDTO>> sortMap(
-        final Map<DependencyDTO, List<DependencyDTO>> deps) {
+            final Map<DependencyDTO, List<DependencyDTO>> deps) {
 
         for (final List<DependencyDTO> values : deps.values()) {
             Collections.sort(values);
         }
 
-        final Map<DependencyDTO, List<DependencyDTO>> sortedMap = new TreeMap<DependencyDTO, List<DependencyDTO>>(deps);
-        return sortedMap;
+        return new TreeMap<DependencyDTO, List<DependencyDTO>>(deps);
     }
 }

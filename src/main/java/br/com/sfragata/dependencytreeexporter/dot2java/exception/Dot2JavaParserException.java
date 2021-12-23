@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package br.com.sfragata.dependencytreeexporter.dot2java.exception;
 
@@ -8,7 +8,7 @@ package br.com.sfragata.dependencytreeexporter.dot2java.exception;
  *
  */
 public class Dot2JavaParserException
-    extends Exception {
+        extends Exception {
 
     private static final long serialVersionUID = 3649228788184171093L;
 

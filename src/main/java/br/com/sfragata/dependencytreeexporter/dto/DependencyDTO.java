@@ -1,19 +1,21 @@
 /**
- * 
+ *
  */
 package br.com.sfragata.dependencytreeexporter.dto;
 
-import java.io.Serializable;
-
 import org.apache.commons.lang.Validate;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * @author Silvio Fragata Silva
  *
  */
 public class DependencyDTO
-    implements Serializable, Comparable<DependencyDTO> {
+        implements Serializable, Comparable<DependencyDTO> {
 
+    @Serial
     private static final long serialVersionUID = -7649090320383201318L;
 
     private String groupId;
@@ -30,75 +32,15 @@ public class DependencyDTO
 
     }
 
-    public String getGroupId() {
-
-        return this.groupId;
-    }
-
-    public void setGroupId(
-        final String groupId) {
-
-        this.groupId = groupId;
-    }
-
-    public String getArtifactId() {
-
-        return this.artifactId;
-    }
-
-    public void setArtifactId(
-        final String artifactId) {
-
-        this.artifactId = artifactId;
-    }
-
-    public String getPackageType() {
-
-        return this.packageType;
-    }
-
-    public void setPackageType(
-        final String packageType) {
-
-        this.packageType = packageType;
-    }
-
-    public String getVersion() {
-
-        return this.version;
-    }
-
-    public void setVersion(
-        final String version) {
-
-        this.version = version;
-    }
-
-    public String getScope() {
-
-        return this.scope;
-    }
-
-    public void setScope(
-        final String scope) {
-
-        this.scope = scope;
-    }
-
-    public String getGroupIdArtifactId() {
-
-        return String.format("%s:%s", this.groupId, this.artifactId);
-    }
-
     public static DependencyDTO parse(
-        final String line) {
+            final String line) {
 
         Validate.notEmpty(line);
 
         final String[] split = line.split(":");
         if (split.length < 4) {
             throw new IllegalArgumentException(
-                "The line must be: <groupId>:<artifactId>:<packageType>:<version>[:<scope>]");
+                    "The line must be: <groupId>:<artifactId>:<packageType>:<version>[:<scope>]");
         }
 
         final DependencyDTO dependencyDTO = new DependencyDTO();
@@ -116,6 +58,66 @@ public class DependencyDTO
 
     }
 
+    public String getGroupId() {
+
+        return this.groupId;
+    }
+
+    public void setGroupId(
+            final String groupId) {
+
+        this.groupId = groupId;
+    }
+
+    public String getArtifactId() {
+
+        return this.artifactId;
+    }
+
+    public void setArtifactId(
+            final String artifactId) {
+
+        this.artifactId = artifactId;
+    }
+
+    public String getPackageType() {
+
+        return this.packageType;
+    }
+
+    public void setPackageType(
+            final String packageType) {
+
+        this.packageType = packageType;
+    }
+
+    public String getVersion() {
+
+        return this.version;
+    }
+
+    public void setVersion(
+            final String version) {
+
+        this.version = version;
+    }
+
+    public String getScope() {
+
+        return this.scope;
+    }
+
+    public void setScope(
+            final String scope) {
+
+        this.scope = scope;
+    }
+
+    public String getGroupIdArtifactId() {
+
+        return String.format("%s:%s", this.groupId, this.artifactId);
+    }
+
     @Override
     public int hashCode() {
 
@@ -131,7 +133,7 @@ public class DependencyDTO
 
     @Override
     public boolean equals(
-        final Object obj) {
+            final Object obj) {
 
         if (this == obj) {
             return true;
@@ -172,34 +174,31 @@ public class DependencyDTO
             return false;
         }
         if (this.version == null) {
-            if (other.version != null) {
-                return false;
-            }
-        } else if (!this.version.equals(other.version)) {
-            return false;
+            return other.version == null;
+        } else {
+            return this.version.equals(other.version);
         }
-        return true;
     }
 
     @Override
     public String toString() {
 
         return "DependencyDTO [groupId="
-            + this.groupId
-            + ", artifactId="
-            + this.artifactId
-            + ", packageType="
-            + this.packageType
-            + ", version="
-            + this.version
-            + ", scope="
-            + this.scope
-            + "]";
+                + this.groupId
+                + ", artifactId="
+                + this.artifactId
+                + ", packageType="
+                + this.packageType
+                + ", version="
+                + this.version
+                + ", scope="
+                + this.scope
+                + "]";
     }
 
     @Override
     public int compareTo(
-        final DependencyDTO o) {
+            final DependencyDTO o) {
 
         return toString().compareTo(o.toString());
     }

@@ -23,12 +23,11 @@ import br.com.sfragata.dependencytreeexporter.dto.DependencyDTO;
 public class Dot2Java {
 
     public Dot2Java() {
-
     }
 
     public Map<DependencyDTO, List<DependencyDTO>> parse(
-        final File dotFile)
-        throws Dot2JavaParserException {
+            final File dotFile)
+            throws Dot2JavaParserException {
 
         final Map<DependencyDTO, List<DependencyDTO>> deps = new HashMap<DependencyDTO, List<DependencyDTO>>();
 
@@ -69,7 +68,7 @@ public class Dot2Java {
     }
 
     private String removeCharacters(
-        final String string) {
+            final String string) {
 
         String replacedString = string.replaceAll("\"", "");
         replacedString = replacedString.replaceAll(";", "");

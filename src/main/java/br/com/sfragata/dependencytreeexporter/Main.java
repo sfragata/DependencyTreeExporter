@@ -1,48 +1,46 @@
 package br.com.sfragata.dependencytreeexporter;
 
-import java.io.File;
-
 import br.com.sfragata.dependencytreeexporter.dot2java.Dot2Java;
 import br.com.sfragata.dependencytreeexporter.dot2java.exception.Dot2JavaParserException;
 import br.com.sfragata.dependencytreeexporter.transform.TransformOutputType;
 import br.com.sfragata.dependencytreeexporter.transform.VelocityTemplateTransform;
 import br.com.sfragata.dependencytreeexporter.transform.exception.TemplateTransformException;
 
+import java.io.File;
+
 public class Main {
 
-	private final Dot2Java dot2Java = new Dot2Java();
+    public Main(final String rootName, final String file,
+                String transformOutputType) {
 
-	private final VelocityTemplateTransform transform = new VelocityTemplateTransform();
+        try {
+            Dot2Java dot2Java = new Dot2Java();
+            VelocityTemplateTransform transform = new VelocityTemplateTransform();
+            transform.transform(rootName, dot2Java.parse(new File(
+                    file)), TransformOutputType
+                    .getTransformOutputType(transformOutputType));
+        } catch (final Dot2JavaParserException | TemplateTransformException e) {
+            e.printStackTrace();
+        }
+    }
 
-	public Main(final String rootName, final String file,
-			String transformOutputType) {
+    public static void main(final String[] args) {
 
-		try {
-			this.transform.transform(rootName, this.dot2Java.parse(new File(
-					file)), TransformOutputType
-					.getTransformOutputType(transformOutputType));
-		} catch (final Dot2JavaParserException | TemplateTransformException e) {
-			e.printStackTrace();
-		}
-	}
+        if (args.length != 3) {
+            showUsage();
+            System.exit(0);
+        }
 
-	public static void main(final String[] args) {
+        new Main(args[0], args[1], args[2]);
+    }
 
-		if (args.length != 3) {
-			showUsage();
-			System.exit(0);
-		}
+    private static void showUsage() {
 
-		new Main(args[0], args[1], args[2]);
-	}
+        final String usage = "Usage:\n\t"
+                + "<rootName> <.dot file path> <HTML|JSON>";
 
-	private static void showUsage() {
+        System.out.println(usage);
 
-		final String usage = "Usage:\n\t"
-				+ "<rootName> <.dot file path> <HTML|JSON>";
-
-		System.out.println(usage);
-
-	}
+    }
 
 }
